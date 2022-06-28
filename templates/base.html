@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dictionary</title>
+        <link rel='stylesheet' href="{{ url_for('static', filename='styles/styles.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id='search-bar'>
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <input type="text" name="query" id="text-box" placeholder="Enter a word here">
+                <input type="image" src="{{ url_for('static', filename='images/lens.png') }}" alt="Submit" id="submit-btn">
+            </form>
+        </div>
+        <div id='search-result'>
+          {% block result %} {% endblock %}
+        </div>
+        <div id="footer">
+            Powered by <a href="https://dictionaryapi.dev" target="_blank">Free Dictionary API</a>
+        </div>
+    </body>
+</html>

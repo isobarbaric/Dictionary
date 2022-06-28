@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block result %}
+    <h2 id="word-search">{{ search_query.word }}</h2>
+    {% for et in search_query.meanings %}
+          <h3 class="ety-header">Etymology #{{ loop.index }}</h3>        
+          <div class="etymology">
+          {% for partOfSpeech in et.keys() %}
+              <div class="list-partOfSpeech">
+                    <h4 id="partOfSpeech">{{partOfSpeech}}</h4>
+              {% for definition in et[partOfSpeech] %}
+                    <div class="definition">
+                        {{ loop.index}}. {{ definition }} 
+                    </div>
+              {% endfor %}
+              </div>
+              <br>
+          {% endfor %}
+          </div>
+    {% endfor %}
+{% endblock %}
