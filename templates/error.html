@@ -3,6 +3,7 @@
     <head>
         <title>Dictionary</title>
         <link rel='stylesheet' href="{{ url_for('static', filename='styles/styles.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
@@ -11,7 +12,8 @@
         <div id='search-bar'>
             <form action="/" method="POST" enctype="multipart/form-data">
                 <input type="text" name="query" id="text-box" placeholder="Enter a word here">
-                <input type="image" src="{{ url_for('static', filename='images/lens.png') }}" alt="Submit" id="submit-btn">
+                <!-- <input type="image" id="image-area" src="{{ url_for('static', filename='images/lens.png') }}" alt="Submit" id="submit-btn"> -->
+                <input type="submit" id="submit-btn" value="Search">
             </form>
         </div>
         <div>

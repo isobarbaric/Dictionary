@@ -1,15 +1,6 @@
 
 from flask import Flask, redirect, request, url_for, render_template
 from word import Word
-import autocomplete
-
-autocomplete.load()
-
-def extract_recommendations(prefix):
-    words = []
-    for pos in autocomplete.predict_currword(prefix, 4):
-        words.append(pos[0])
-    return words
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0

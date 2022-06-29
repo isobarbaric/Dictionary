@@ -11,8 +11,9 @@
     <body>
         <div id='search-bar'>
             <form action="/" method="POST" enctype="multipart/form-data">
-                <input type="text" name="query" id="text-box" placeholder="Enter a word here">
-                <input type="image" src="{{ url_for('static', filename='images/lens.png') }}" alt="Submit" id="submit-btn">
+                <input type="text" name="query" id="text-box" placeholder="Enter a word here" autocomplete="off">
+                <!-- <input type="image" id="image-area" src="{{ url_for('static', filename='images/lens.png') }}" alt="Submit" id="submit-btn"> -->
+                <input type="submit" id="submit-btn" value="Search">
             </form>
         </div>
         <div id='search-result'>
