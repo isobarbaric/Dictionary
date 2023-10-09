@@ -13,4 +13,3 @@ class Dictionary:
         if response.status_code != 200:
             return "404"
         return response.content
-
