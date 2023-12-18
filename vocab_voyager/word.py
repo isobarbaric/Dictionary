@@ -1,6 +1,6 @@
 
-from definer import Dictionary
-from variant import Variant
+from vocab_voyager.definer import Dictionary
+from vocab_voyager.variant import Variant
 import json
 
 

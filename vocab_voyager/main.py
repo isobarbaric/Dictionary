@@ -1,6 +1,6 @@
 
 from flask import Flask, redirect, request, url_for, render_template
-from word import Word
+from vocab_voyager.word import Word
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
