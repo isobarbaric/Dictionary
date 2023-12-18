@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Krish Shah <shahkrish2016@gmail.com>"]
 readme = "README.md"
+packages = [{include = "vocab_voyager"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"

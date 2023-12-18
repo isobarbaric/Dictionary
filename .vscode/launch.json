@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "app",
+        "type": "python",
+        "request": "launch",
+        "program": "vocab_voyager/app.py",
+        "console": "integratedTerminal",
+        "justMyCode": true
+      }
+    ]
+  }
+  
