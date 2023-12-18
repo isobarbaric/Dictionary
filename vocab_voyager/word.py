@@ -1,18 +1,34 @@
 
-from vocab_voyager.definer import Dictionary
-from vocab_voyager.variant import Variant
 import json
+from dataclasses import dataclass
+import requests
 
+@dataclass
+class Variant:
+    """Class for keeping track of a variant of a word"""
+    text: str
+    part_of_speech: str
+    defn: str
+
+    def __repr__(self):
+        return self.defn
 
 class Word:
 
-    dictionary = Dictionary()
+    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+
+    @staticmethod
+    def define(query):
+        response = requests.get(Word.api_url + query, timeout=5)
+        if response.status_code != 200:
+            return "404"
+        return response.content
 
     def __init__(self, word: str):
         self.word = word
 
         # calling define() to find definition of word
-        definition = Word.dictionary.define(word)
+        definition = Word.define(word)
 
         # if definition not found, word does not exist
         if definition == '404':
@@ -31,12 +47,11 @@ class Word:
                 for variant in part_of_speech['definitions']:
                     self.meanings[-1][part_of_speech['partOfSpeech']].append(Variant(word, part_of_speech['partOfSpeech'], variant['definition']))
 
-    # method created to allow printing a word out (useful for debugging)
+    # method to print a word out
     def __repr__(self):
         info = ''
         cnt = 1
 
-        # 
         for etymology in self.meanings:
             info += "Etymology #" + str(cnt) + '\n'
             for part_of_speech in etymology:
@@ -46,4 +61,6 @@ class Word:
             info += '\n'
             cnt += 1
         return info
+
+
 
