@@ -1,4 +1,6 @@
 
+# pydantic model
+
 class Variant:
 
     def __init__(self, text, part_of_speech: str, definition: list):
