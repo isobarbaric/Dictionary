@@ -1,4 +1,3 @@
-
 import os
 from flask import Flask, redirect, request, url_for, render_template
 from word import Word
