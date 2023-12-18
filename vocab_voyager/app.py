@@ -21,7 +21,7 @@ def home():
 @app.route('/<word>/')
 def definition(word):
     current_word = Word(word)
-    if current_word.meanings == 404:
+    if current_word.meanings is None:
         return render_template('error.html')
     else:
         return render_template('result.html', search_query = current_word)

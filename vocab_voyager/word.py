@@ -5,13 +5,13 @@ import requests
 
 @dataclass
 class Variant:
-    """Class for keeping track of a variant of a word"""
+    """Class for keeping track of a word's variants"""
     text: str
     part_of_speech: str
-    defn: str
+    definition: str
 
     def __repr__(self):
-        return self.defn
+        return self.definition
 
 class Word:
 
@@ -19,48 +19,47 @@ class Word:
 
     @staticmethod
     def define(query):
+        # calling API to get info about word
         response = requests.get(Word.api_url + query, timeout=5)
+        
         if response.status_code != 200:
-            return "404"
+            return None
         return response.content
 
     def __init__(self, word: str):
         self.word = word
-
-        # calling define() to find definition of word
         definition = Word.define(word)
 
         # if definition not found, word does not exist
-        if definition == '404':
-            self.meanings = 404
+        if definition is None:
+            self.meanings = None
             return
 
+        # parsing the API response to extract information next
         query_response = json.loads(definition)
         self.meanings = []
 
-        # deciphering json response
+        # assembling list of meanings based on etymology by deconstructing structure of API response
         for etymology in query_response:
-            self.meanings.append(dict())
-
+            curr_etymology = dict()
+            
             for part_of_speech in etymology['meanings']:
-                self.meanings[-1][part_of_speech['partOfSpeech']] = []
-                for variant in part_of_speech['definitions']:
-                    self.meanings[-1][part_of_speech['partOfSpeech']].append(Variant(word, part_of_speech['partOfSpeech'], variant['definition']))
+                curr_etymology[part_of_speech['partOfSpeech']] = []
 
-    # method to print a word out
+                for variant in part_of_speech['definitions']:
+                    curr_etymology[part_of_speech['partOfSpeech']].append(Variant(word, part_of_speech['partOfSpeech'], variant['definition']))
+
+            self.meanings.append(curr_etymology)
+
+    # __repr__ useful for debugging
     def __repr__(self):
         info = ''
-        cnt = 1
 
-        for etymology in self.meanings:
-            info += "Etymology #" + str(cnt) + '\n'
+        for index, etymology in enumerate(self.meanings):
+            info += f'Etymology #{index}\n'
             for part_of_speech in etymology:
-                info += ' ' * 2 + part_of_speech + '\n'
+                info += f'  {part_of_speech}\n'
                 for word in etymology[part_of_speech]:
-                    info += ' ' * 4 + str(word) + '\n'
+                    info += f'    {word}\n'
             info += '\n'
-            cnt += 1
         return info
-
-
-
