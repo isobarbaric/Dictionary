@@ -53,7 +53,6 @@ class Word:
     # __repr__ useful for debugging
     def __repr__(self):
         info = ''
-
         for index, etymology in enumerate(self.meanings):
             info += f'Etymology #{index}\n'
             for part_of_speech in etymology:
