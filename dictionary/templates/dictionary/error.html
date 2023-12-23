@@ -1,29 +1,5 @@
-{% load static %}
+{% extends "dictionary/base.html" %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Dictionary</title>
-        <link rel='stylesheet' href="{% static '/css/main.css' %}">
-        <link rel="icon" type="image/x-icon" href="{% static '/images/dictionary.png' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com"> 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-        <link href="https://fonts.googleapis.com/css2?family=Gantari&display=swap" rel="stylesheet">   
-    </head>
-    <body>
-        <div id='search-bar'>
-            <form action="/" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <!-- <input type="text" name="query" id="text-box" placeholder="Enter a word here" autocomplete="off"> -->
-                <input type="submit" id="submit-btn" value="Search">
-            </form>
-        </div>
-        <div>
-            <h2 id="not-found">Word not found!</h2>
-        </div>
-        <div id="footer">
-            Powered by <a href="https://dictionaryapi.dev">Free Dictionary API</a>
-        </div>
-    </body>
-</html>
+{% block result %}
+    <h2 id="not-found">Word not found!</h2>
+{% endblock %}
