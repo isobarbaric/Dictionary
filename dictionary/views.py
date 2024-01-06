@@ -8,7 +8,7 @@ def home(request):
         if form.is_valid():
             word = form.cleaned_data['word']
             print(word)
-            return redirect('definition', search_query=word)
+            return redirect('definition', search_query = word)
     else:
         form = WordForm()
  
@@ -20,6 +20,6 @@ def definition(request, search_query):
     current_word = Word(search_query)
     print(search_query)
     if current_word.meanings is None:
-        return render(request, 'dictionary/error.html')
+        return render(request, 'dictionary/error.html', {'form': WordForm()})
     else:
         return render(request, 'dictionary/result.html', {'search_query' : current_word, 'form': WordForm()})
