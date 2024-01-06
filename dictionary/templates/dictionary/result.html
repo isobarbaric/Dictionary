@@ -1,20 +1,19 @@
 {% extends "dictionary/base.html" %}
 
 {% block result %}
-    <h2 id="word-search">{{ search_query.word }}</h2>
+    <h2 class="word-search">{{ search_query.word }}</h2>
     {% for et in search_query.meanings %}
           <h3 class="ety-header">Etymology #{{ forloop.counter }}</h3>        
           <div class="etymology">
           {% for partOfSpeech, defs in et.items %}
               <div class="list-partOfSpeech">
-                    <h4 id="partOfSpeech">{{partOfSpeech}}</h4>
+                    <h4 class="partOfSpeech">{{partOfSpeech}}</h4>
               {% for definition in defs %}
                     <div class="definition">
                         {{ forloop.counter}}. {{ definition }} 
                     </div>
               {% endfor %}
               </div>
-              <br>
           {% endfor %}
           </div>
     {% endfor %}

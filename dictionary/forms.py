@@ -1,4 +1,8 @@
 from django import forms
 
 class WordForm(forms.Form):
-    word = forms.CharField(label='Enter a word here', max_length=50)
+    word = forms.CharField(
+        max_length = 50,
+        label = '',
+        widget = forms.TextInput(attrs={'placeholder': 'Enter a word here'})
+    )
