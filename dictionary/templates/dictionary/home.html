@@ -1,0 +1,9 @@
+{% extends "dictionary/base.html" %}
+
+{% block user_words %}
+    user words here
+    <h2>results</h2>
+    {% for vocab_term in terms %}
+        <p>{{ vocab_term.word }}</p>
+    {% endfor %}
+{% endblock %}
