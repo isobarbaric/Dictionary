@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
@@ -59,19 +60,17 @@ def home(request):
         return render(request, 'dictionary/base.html', {'search_bar': form})
 
 @login_required(login_url = '/login/')
-def add_term(request):
-    if request.method == 'POST':
-        vocab_form = VocabForm(request.POST)
-        print(vocab_form)
-        if vocab_form.is_valid():
-            vocab_term = vocab_form.save(commit=False)
-            vocab_term.user = request.user
-            vocab_term.save()
-            return redirect('/')
-    else:
-        vocab_form = VocabForm()
+def add_term(request, current_word):
+    # add term to database, if it doesn't already exist
+    try:
+        VocabTerm.objects.create(user = request.user, word = current_word)
+    except IntegrityError:
+        pass
 
-    return render(request, 'dictionary/add_term.html', {'search_bar': WordForm(), 'vocab_form': vocab_form})
+    # go back to the original search query
+    return redirect('definition', search_query = current_word)
+
+# add user-highlighted feature to definition function
 
 def definition(request, search_query):
     current_word = Word(search_query)
