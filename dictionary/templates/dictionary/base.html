@@ -44,9 +44,19 @@
 
                     <!-- user buttons -->
                     <div class="col-3">
-                        <div class="py-1">
-                            <a href="/login" class="btn btn-success user-btn">Login</a>
-                        </div>
+                        {% if user.is_authenticated %}
+                            <div class="py-1">
+                                <span>Welcome, {{ user.username }}</span>
+                            </div>
+                            <div class="py-1">
+                                <a href="/log-out" class="btn btn-success user-btn">Log out</a>
+                            </div>
+                        {% else %}
+                            <div class="py-1">
+                                <a href="/login" class="btn btn-success user-btn">Login</a>
+                            </div>                    
+                        {% endif %}
+
                         <div class="py-1">
                             <a href="/sign-up" class="btn btn-success user-btn">Sign Up</a>
                         </div>

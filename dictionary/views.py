@@ -25,15 +25,19 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
 
-            print("User created:", user)
+            # print("User created:", user)
             login(request, user)
-            print("User authenticated:", request.user.is_authenticated)
+            # print("User authenticated:", request.user.is_authenticated)
 
             return redirect('login')
     else:
         form = RegistrationForm()
 
     return render(request, 'registration/sign_up.html', {'search_bar': WordForm(), 'signup_form': form})
+
+def log_out(request):
+    logout(request)
+    return redirect('login')
 
 def home(request):
     if request.method == 'POST':
