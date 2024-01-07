@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from .word import Word
-from .forms import WordForm, RegistrationForm
-from django.contrib.auth import login, logout, authenticate
+from .forms import WordForm, RegistrationForm, VocabForm
 
 # adding search_bar to the login page by overriding the get_context_data method
 class ModLoginView(LoginView):
@@ -50,6 +51,21 @@ def home(request):
         form = WordForm()
  
     return render(request, 'dictionary/base.html', {'search_bar': form})
+
+@login_required(login_url = '/login/')
+def add_term(request):
+    if request.method == 'POST':
+        vocab_form = VocabForm(request.POST)
+        print(vocab_form)
+        if vocab_form.is_valid():
+            vocab_term = vocab_form.save(commit=False)
+            vocab_term.user = request.user
+            vocab_term.save()
+            return redirect('/')
+    else:
+        vocab_form = VocabForm()
+
+    return render(request, 'dictionary/add_term.html', {'search_bar': WordForm(), 'vocab_form': vocab_form})
 
 def definition(request, search_query):
     current_word = Word(search_query)

@@ -1,0 +1,11 @@
+{% extends "dictionary/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block result %}
+    <form method="POST">
+        {% csrf_token %} 
+        <h2>Add a Term</h2>
+        {{vocab_form | crispy}}
+        <button type="submit" class="btn btn-success">Add Term</button>
+    </form>
+{% endblock %}
