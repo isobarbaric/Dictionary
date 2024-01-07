@@ -1,7 +1,29 @@
 {% extends "dictionary/base.html" %}
 
 {% block result %}
-    <h2 class="word-search">{{ search_query.word }}</h2>
+    <div>
+        <div class="word-search fs-2">{{ search_query.word }}</h2>
+        {% if user.is_authenticated %}            
+            {% if user_list %}
+                <i class="fa-solid fa-star fa-lg selected-star"></i>
+            {% else %}
+                <i class="fa-regular fa-star fa-lg unselected-star"></i>
+            {% endif %}
+
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    var star = document.querySelector('.unselected-star');
+                
+                    star.addEventListener('click', function() {
+                        var word = '{{ search_query.word }}';
+                        console.log(word);
+                        window.location.href = '/add-term/' + word;
+                    });
+                });
+            </script>
+        {% endif %}
+    </div>
+    
     {% for et in search_query.meanings %}
             <h3 class="ety-header">Etymology #{{ forloop.counter }}</h3>        
             <div class="etymology">

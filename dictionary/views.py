@@ -38,6 +38,7 @@ def sign_up(request):
 
     return render(request, 'registration/sign_up.html', {'search_bar': WordForm(), 'signup_form': form})
 
+@login_required(login_url = '/login/')
 def log_out(request):
     logout(request)
     return redirect('login')
@@ -61,7 +62,7 @@ def home(request):
 
 @login_required(login_url = '/login/')
 def add_term(request, current_word):
-    # add term to database, if it doesn't already exist
+    # add term to database, if it doesn't already exist (exception)
     try:
         VocabTerm.objects.create(user = request.user, word = current_word)
     except IntegrityError:
@@ -70,12 +71,13 @@ def add_term(request, current_word):
     # go back to the original search query
     return redirect('definition', search_query = current_word)
 
-# add user-highlighted feature to definition function
-
 def definition(request, search_query):
     current_word = Word(search_query)
     print(search_query)
+
     if current_word.meanings is None:
         return render(request, 'dictionary/error.html', {'search_bar': WordForm()})
     else:
-        return render(request, 'dictionary/result.html', {'search_query' : current_word, 'search_bar': WordForm()})
+        # checks if word is already in the user's list
+        word_exists = VocabTerm.objects.filter(user=request.user, word=search_query).exists()
+        return render(request, 'dictionary/result.html', {'search_query' : current_word, 'search_bar': WordForm(), 'user_list': word_exists})

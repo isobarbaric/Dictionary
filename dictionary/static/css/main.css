@@ -28,6 +28,17 @@
     width: 7em;
 }
 
+
+/* highlighted star */
+.fa-star {
+    color: gold;
+    cursor: pointer;
+}
+
+.unselected-star:hover {
+    color: gold;
+}
+
 .ety-header {
     padding: 1em;
     margin: 0.2em;
