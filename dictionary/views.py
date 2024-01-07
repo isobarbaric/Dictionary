@@ -51,9 +51,12 @@ def home(request):
     else:
         form = WordForm()
  
-    print("home:", request.user.is_authenticated)
+    # print("home:", request.user.is_authenticated)
 
-    return render(request, 'dictionary/home.html', {'search_bar': form, 'terms': VocabTerm.objects.filter(user=request.user)})
+    if request.user.is_authenticated:
+        return render(request, 'dictionary/home.html', {'search_bar': form, 'terms': VocabTerm.objects.filter(user=request.user)})
+    else:
+        return render(request, 'dictionary/base.html', {'search_bar': form})
 
 @login_required(login_url = '/login/')
 def add_term(request):
