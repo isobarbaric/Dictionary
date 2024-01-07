@@ -29,7 +29,7 @@ def sign_up(request):
             login(request, user)
             print("User authenticated:", request.user.is_authenticated)
 
-            return redirect('home')
+            return redirect('login')
     else:
         form = RegistrationForm()
 
