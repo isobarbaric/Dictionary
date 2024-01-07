@@ -13,13 +13,11 @@ class ModLoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         # adding search bar to login page
         context['search_bar'] = WordForm()
 
         # renaming login form
         context['login_form'] = context.pop('form')
-
         return context
 
 def sign_up(request):
@@ -27,11 +25,7 @@ def sign_up(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-
-            # print("User created:", user)
             login(request, user)
-            # print("User authenticated:", request.user.is_authenticated)
-
             return redirect('login')
     else:
         form = RegistrationForm()
@@ -52,8 +46,6 @@ def home(request):
             return redirect('definition', search_query = word)
     else:
         form = WordForm()
- 
-    # print("home:", request.user.is_authenticated)
 
     if request.user.is_authenticated:
         return render(request, 'dictionary/home.html', {'search_bar': form, 'terms': VocabTerm.objects.filter(user=request.user)})
