@@ -18,6 +18,16 @@
                             var word = '{{ search_query.word }}';
                             window.location.href = '/add-term/' + word;
                         });
+
+                        unselected_star.addEventListener('mouseenter', function() {
+                            unselected_star.classList.remove('fa-regular');
+                            unselected_star.classList.add('fa-solid');
+                        });
+
+                        unselected_star.addEventListener('mouseleave', function() {
+                            unselected_star.classList.remove('fa-solid');
+                            unselected_star.classList.add('fa-regular');
+                        });
                     }
 
                     var selected_star = document.querySelector('.selected-star');
