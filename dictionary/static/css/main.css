@@ -9,6 +9,11 @@
     color: white;
 }
 
+.search-bar {
+    border-radius: 15px 15px 15px 15px;
+    width: 100%;
+}
+
 .word-search {
     padding-top: 1em;
     font-size: 2em;

@@ -6,15 +6,15 @@
     <head>
         <title>Vocab Voyager</title>
 
-        <!-- assets -->
-        <link rel='stylesheet' href="{% static '/css/main.css' %}">
-        <link rel="icon" type="image/x-icon" href="{% static '/images/dictionary.png' %}">
-
         <!-- bootstrap, fontawesome -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/a76f3a78b4.js" crossorigin="anonymous"></script>
 
+        <!-- assets -->
+        <link rel='stylesheet' href="{% static '/css/main.css' %}">
+        <link rel="icon" type="image/x-icon" href="{% static '/images/dictionary.png' %}">
+        
         <!-- font -->
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
@@ -22,50 +22,43 @@
     </head>
     <body>
         <nav class="py-4 nav-custom">
-            <!-- container vs container-fluid -->
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-center justify-content-between">
                     <!-- title -->
-                    <div class="col-3">
+                    <div class="col-3 d-flex align-items-center">
                         <a href="/" class="navbar-brand fs-2">
                             Vocab Voyager 
                         </a>        
                     </div>
-
+        
                     <!-- search bar -->
-                    <div class="col-6">
-                        <div id='search-bar'>
-                            <form method="POST" action="{% url 'home' %}" class="d-flex">
+                    <div class="col-6 d-flex align-items-center">
+                        <div class='search-bar' class="w-100">
+                            <form method="POST" action="{% url 'home' %}" class="d-flex w-100">
                                 {% csrf_token %}
-                                {{ search_bar | crispy }}
+                                <div class="me-2 w-100">
+                                    {{ search_bar | crispy }}
+                                </div>
                                 <input class="btn btn-success" type="submit" id="submit-btn" value="Search">
                             </form>
                         </div>
                     </div>
-
+        
                     <!-- user buttons -->
-                    <div class="col-3">
+                    <div class="col-3 d-flex align-items-center justify-content-end">
                         {% if user.is_authenticated %}
-                            <div class="py-1">
-                                <span>Welcome, {{ user.username }}</span>
-                            </div>
-                            <div class="py-1">
-                                <a href="/log-out" class="btn btn-success user-btn">Log out</a>
-                            </div>
+                            <span class="me-3 fs-5">Welcome, {{ user.username }}</span>
+                            <a href="/log-out" class="btn btn-success user-btn">Log out</a>
                         {% else %}
-                            <div class="py-1">
-                                <a href="/login" class="btn btn-success user-btn">Login</a>
-                            </div>                    
-                        {% endif %}
-
-                        <div class="py-1">
+                            <a href="/login" class="btn btn-success user-btn me-2">Login</a>
                             <a href="/sign-up" class="btn btn-success user-btn">Sign Up</a>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </nav>
-
+        
+        
         {% block user_words %} {% endblock %}
 
         <div id='search-result'>
@@ -81,5 +74,16 @@
                 Free Dictionary API
             </a>
         </div>
+        <script type="text/javascript">
+            var element = document.getElementById("div_id_word");
+
+            if (element) {
+                // remove default mb-3
+                element.classList.remove("mb-3");
+
+                // add search-bar
+                element.classList.add("search-bar");
+            }
+        </script>
     </body>
 </html>
