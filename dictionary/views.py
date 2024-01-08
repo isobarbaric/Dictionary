@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from .word import Word
 from .forms import WordForm, RegistrationForm, VocabForm
 from .models import VocabTerm
+from spellchecker import SpellChecker
+
+spell = SpellChecker()
 
 # adding search_bar to the login page by overriding the get_context_data method
 class ModLoginView(LoginView):
@@ -67,9 +70,21 @@ def definition(request, search_query):
     current_word = Word(search_query)
     print(search_query)
 
+    # get possible words that the user meant to search for
+    possible_words = spell.candidates(search_query)
+    if not possible_words is None:
+        # only include words whose definitions exist in the dictionary
+        possible_words = [word for word in list(possible_words) if not Word(word).meanings is None]
+
+        # only include the first 10 suggestions
+        possible_words = possible_words[:10]
+
     if current_word.meanings is None:
-        return render(request, 'dictionary/error.html', {'search_bar': WordForm()})
+        return render(request, 'dictionary/error.html', {'search_bar': WordForm(), 'possible_words': possible_words})
     else:
-        # checks if word is already in the user's list
-        word_exists = VocabTerm.objects.filter(user=request.user, word=search_query).exists()
-        return render(request, 'dictionary/result.html', {'search_query' : current_word, 'search_bar': WordForm(), 'user_list': word_exists})
+        if request.user.is_authenticated:
+            # checks if word is already in the user's list
+            word_exists = VocabTerm.objects.filter(user=request.user, word=search_query).exists()
+            return render(request, 'dictionary/result.html', {'search_query' : current_word, 'search_bar': WordForm(), 'user_list': word_exists})
+        else:
+            return render(request, 'dictionary/result.html', {'search_query' : current_word, 'search_bar': WordForm()})            

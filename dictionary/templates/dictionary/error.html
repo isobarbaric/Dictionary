@@ -2,4 +2,11 @@
 
 {% block result %}
     <h2 class="not-found">Word not found!</h2>
+
+    {% if possible_words %}
+        {% for candidate in possible_words %}
+            <a href="/search/{{candidate}}" class="candidate">{{ candidate }}</p>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}
