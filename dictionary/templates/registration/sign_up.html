@@ -3,7 +3,7 @@
 
 {% block result %}
 <div class="container m-5 mt-3 mb-2">
-    <form method="POST">
+    <form method="POST" autocomplete="off">
         {% csrf_token %} 
         <h2>Register</h2>
         {{signup_form | crispy}}

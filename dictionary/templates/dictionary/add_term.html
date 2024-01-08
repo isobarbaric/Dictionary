@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block result %}
-    <form method="POST">
+    <form method="POST" autocomplete="off">
         {% csrf_token %} 
         <h2>Add a Term</h2>
         {{vocab_form | crispy}}

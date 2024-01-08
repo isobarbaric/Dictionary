@@ -34,7 +34,7 @@
                     <!-- search bar -->
                     <div class="col-6 d-flex align-items-center">
                         <div class='search-bar' class="w-100">
-                            <form method="POST" action="{% url 'home' %}" class="d-flex w-100">
+                            <form method="POST" action="{% url 'home' %}" class="d-flex w-100" autocomplete="off">
                                 {% csrf_token %}
                                 <div class="me-2 w-100">
                                     {{ search_bar | crispy }}
