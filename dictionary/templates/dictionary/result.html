@@ -12,13 +12,22 @@
 
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function() {
-                    var star = document.querySelector('.unselected-star');
-                
-                    star.addEventListener('click', function() {
-                        var word = '{{ search_query.word }}';
-                        console.log(word);
-                        window.location.href = '/add-term/' + word;
-                    });
+                    var unselected_star = document.querySelector('.unselected-star');
+                    if (unselected_star) {
+                        unselected_star.addEventListener('click', function() {
+                            var word = '{{ search_query.word }}';
+                            window.location.href = '/add-term/' + word;
+                        });
+                    }
+
+                    var selected_star = document.querySelector('.selected-star');
+                    if (selected_star) {
+                        selected_star.addEventListener('click', function() {
+                            var word = '{{ search_query.word }}';
+                            console.log(word);
+                            window.location.href = '/delete-term/' + word;
+                        });
+                    }
                 });
             </script>
         {% endif %}

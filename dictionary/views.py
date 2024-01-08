@@ -57,10 +57,22 @@ def home(request):
 
 @login_required(login_url = '/login/')
 def add_term(request, current_word):
-    # add term to database, if it doesn't already exist (exception)
+    # add term to user's list, if it doesn't already exist (exception)
     try:
         VocabTerm.objects.create(user = request.user, word = current_word)
     except IntegrityError:
+        pass
+
+    # go back to the original search query
+    return redirect('definition', search_query = current_word)
+
+@login_required(login_url = '/login/')
+def delete_term(request, current_word):
+    # delete term from user's list
+    try:
+        VocabTerm.objects.filter(user = request.user, word = current_word).delete()
+        # in case any unexpected error occurs
+    except Exception:
         pass
 
     # go back to the original search query
