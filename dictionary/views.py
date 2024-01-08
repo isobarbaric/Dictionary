@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from .word import Word
-from .forms import WordForm, RegistrationForm, VocabForm
-from .models import VocabTerm
 from spellchecker import SpellChecker
+from .word import Word
+from .forms import WordForm, RegistrationForm
+from .models import VocabTerm
 
 spell = SpellChecker()
 
@@ -79,6 +79,7 @@ def delete_term(request, current_word):
     return redirect('definition', search_query = current_word)
 
 def definition(request, search_query):
+    search_query = search_query.lower()
     current_word = Word(search_query)
     print(search_query)
 

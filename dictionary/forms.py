@@ -14,8 +14,3 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
-
-class VocabForm(forms.ModelForm):
-    class Meta:
-        model = VocabTerm
-        fields = ['word']
