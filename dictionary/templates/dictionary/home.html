@@ -1,8 +1,25 @@
 {% extends "dictionary/base.html" %}
+{% load static %}
 
 {% block user_words %}
-    <h4>Your words:</h4>
-    {% for vocab_term in terms %}
-        <h6>- {{ vocab_term.word }}</h6>
-    {% endfor %}
+<div class="container mt-4">
+    <h4 class="text-center mb-4 word-header">Your words:</h4>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for vocab_term in terms %}
+                <div class="word-card my-2">
+                    <a href="/search/{{vocab_term.word}}" target="_blank">
+                        <h5 class="word-text">
+                            {{ vocab_term.word }}
+                        </h5>
+                    </a>
+                </div>
+            {% empty %}
+            <div class="error-card">
+                <p>You have not added any words yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
