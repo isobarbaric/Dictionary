@@ -47,7 +47,7 @@
                     <!-- user buttons -->
                     <div class="col-3 d-flex align-items-center justify-content-end">
                         {% if user.is_authenticated %}
-                            <span class="me-3 fs-5">Welcome, {{ user.username }}</span>
+                            <span class="me-4 fs-5">{{ user.username }}</span>
                             <a href="/log-out" class="btn btn-success user-btn">Log out</a>
                         {% else %}
                             <a href="/login" class="btn btn-success user-btn me-2">Login</a>
