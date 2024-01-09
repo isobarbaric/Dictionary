@@ -1,6 +1,6 @@
-# VocabVoyager
+# VocabVoyager :rocket:
 
-Embark on a linguistic adventure :rocket: with Vocab Voyager, the ultimate dictionary app for word enthusiasts!
+Embark on a linguistic adventure with Vocab Voyager, the ultimate dictionary app for word enthusiasts!
 
 Vocab Voyager lets you effortlessly search for word definitions, enriching your language skills with every query. Sign up to personalize your journey - save the words you're mastering and have them conveniently displayed on your homepage every time you log in. 
 
